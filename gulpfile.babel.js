@@ -69,7 +69,7 @@ const Server = require('karma').Server;
     beautify task - beautify html, css, js in src folder
 */
 gulp.task('beautify', () =>
-    gulp.src(['src/*.css', 'src/*.html', 'src/*.js'])
+    gulp.src(['src/**/*.css', 'src/**/*.html', 'src/**/*.js'])
     .pipe(beautify())
     .pipe(gulp.dest('src'))
 );
@@ -87,7 +87,7 @@ gulp.task('clean:dist', function() {
     ESLint task
 */
 gulp.task('lint', function() {
-    return gulp.src('src/*.js').pipe(eslint(eslintConfig))
+    return gulp.src('src/**/*.js').pipe(eslint(eslintConfig))
         .pipe(eslint.format())
         // Brick on failure to be super strict
         .pipe(eslint.failOnError());
@@ -98,7 +98,7 @@ gulp.task('lint', function() {
 */
 gulp.task('uglify-js', function(callback) {
     pump([
-            gulp.src('dist/*.js'),
+            gulp.src('dist/**/*.js'),
             uglify(),
             gulp.dest('dist')
         ],
@@ -110,7 +110,7 @@ gulp.task('uglify-js', function(callback) {
     gulp-uglify (es6) task
 */
 gulp.task('uglify-es6', function() {
-    return gulp.src('src/*.js')
+    return gulp.src('src/**/*.js')
         .pipe(uglifyes6())
         .pipe(gulp.dest('dist'));
 });
@@ -119,7 +119,7 @@ gulp.task('uglify-es6', function() {
     gulp minify (css) task
 */
 gulp.task('minify-css', () => {
-    return gulp.src('src/*.css')
+    return gulp.src('src/**/*.css')
         .pipe(cleanCSS({
             compatibility: '*',
             level: 2
@@ -131,7 +131,7 @@ gulp.task('minify-css', () => {
     gulp minify (html) task
 */
 gulp.task('minify-html', () => {
-    return gulp.src('src/*.html')
+    return gulp.src('src/**/*.html')
         .pipe(htmlmin({
             collapseWhitespace: true
         }))
@@ -142,7 +142,7 @@ gulp.task('minify-html', () => {
     gulp minify (images) task
 */
 gulp.task('minify-images', () =>
-    gulp.src('src/images/*')
+    gulp.src('src/images/**/*')
     .pipe(imagemin([
         imagemin.gifsicle({
             interlaced: true
@@ -170,7 +170,7 @@ gulp.task('minify-images', () =>
     gulp-babel task
 */
 gulp.task('babel', () =>
-    gulp.src('src/*.js')
+    gulp.src('src/**/*.js')
     .pipe(babel({
         presets: ['@babel/env']
     }))
