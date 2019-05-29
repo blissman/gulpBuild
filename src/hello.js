@@ -1,5 +1,5 @@
-const greet = (name) => {
+function greet(name) {
     return "Hello, " + name + "!";
 };
 
-greet("Bliss");
+module.exports = greet;
