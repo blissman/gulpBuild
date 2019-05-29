@@ -49,4 +49,4 @@ gulpBuild will minify your JavaScript, HTML, css, and images so that your site l
 
 You can test your code against Karma/Jasmine tests. This is inlcuded in the ```default, pretty``` and ```es6``` tasks.
 
-You can also perform test-driven-development (tdd) with the ```$ gulp tdd``` task. Unlike the singlerun tests which test against the built files, this will tdd against your source files.
+You can also perform test-driven-development (tdd) with the ```$ jest --watch``` task. Unlike the singlerun tests which test against the built files, this will tdd against your source files.

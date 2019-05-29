@@ -19,7 +19,9 @@ const eslintConfig = {
         "indent": [
             "error",
             4,
-            {"SwitchCase": 1}
+            {
+                "SwitchCase": 1
+            }
         ],
         "linebreak-style": [
             "error",
@@ -53,7 +55,6 @@ const eslintConfig = {
 const babel = require('gulp-babel');
 // uglify (js)
 const uglify = require('gulp-uglify');
-const pump = require('pump');
 // uglify (es6)
 const uglifyes6 = require('gulp-uglify-es').default;
 // minify (css)
@@ -62,8 +63,7 @@ const cleanCSS = require('gulp-clean-css');
 const htmlmin = require('gulp-htmlmin');
 // minify (images)
 const imagemin = require('gulp-imagemin');
-// karma
-const Server = require('karma').Server;
+const jest = require('jest');
 
 /*
     beautify task - beautify html, css, js in src folder
@@ -77,9 +77,10 @@ gulp.task('beautify', () =>
 /*
     clean task - remove existing dist folder and its contents
 */
-gulp.task('clean:dist', function() {
+gulp.task('clean', function() {
     return del([
         'dist/**/*',
+        'test/coverage/**/*'
     ]);
 });
 
@@ -97,13 +98,9 @@ gulp.task('lint', function() {
     gulp-uglify (js) task
 */
 gulp.task('uglify-js', function(callback) {
-    pump([
-            gulp.src('dist/**/*.js'),
-            uglify(),
-            gulp.dest('dist')
-        ],
-        callback
-    );
+    return gulp.src('dist/**/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('dist'));
 });
 
 /*
@@ -180,17 +177,12 @@ gulp.task('babel', () =>
 /*
     karma tasks
 */
-gulp.task('test', function(done) {
-    new Server({
-        configFile: __dirname + '/karma.conf.js',
-        singleRun: true
-    }, done()).start();
-});
-
-gulp.task('tdd', function(done) {
-    new Server({
-        configFile: __dirname + '/karmatdd.conf.js'
-    }, done()).start();
+gulp.task('test', function() {
+    return jest.runCLI({
+        config: {
+            rootDir: 'test/'
+        }
+    }, '.');
 });
 
 /*
@@ -200,7 +192,7 @@ gulp.task( // clean, lint, transpile to es5, uglify, and test
     'default',
     gulp.series(
         gulp.parallel(
-            'clean:dist',
+            'clean',
             'lint'
         ),
         'babel',
@@ -218,7 +210,7 @@ gulp.task( // same as default, but no uglify
     'pretty',
     gulp.series(
         gulp.parallel(
-            'clean:dist',
+            'clean',
             'lint'
         ),
         'babel',
@@ -230,7 +222,7 @@ gulp.task( // same as default, but leaves code in es6
     'es6',
     gulp.series(
         gulp.parallel(
-            'clean:dist',
+            'clean',
             'lint'
         ),
         gulp.parallel(
@@ -247,7 +239,7 @@ gulp.task( // skip linting and testing
     'build',
     gulp.series(
         gulp.parallel(
-            'clean:dist'
+            'clean'
         ),
         'babel',
         gulp.parallel(
@@ -263,7 +255,7 @@ gulp.task( // skip linting and testing, and leaves code in es6
     'buildes6',
     gulp.series(
         gulp.parallel(
-            'clean:dist'
+            'clean'
         ),
         gulp.parallel(
             'uglify-es6',
