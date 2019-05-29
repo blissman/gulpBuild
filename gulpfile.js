@@ -63,6 +63,7 @@ const cleanCSS = require('gulp-clean-css');
 const htmlmin = require('gulp-htmlmin');
 // minify (images)
 const imagemin = require('gulp-imagemin');
+// jest (testing)
 const jest = require('jest');
 
 /*
