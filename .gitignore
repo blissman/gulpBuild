@@ -31,5 +31,5 @@ node_modules
 # output files
 dist
 
-#coverage
+# coverage
 test/coverage
