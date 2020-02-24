@@ -179,11 +179,7 @@ gulp.task('babel', () =>
     karma tasks
 */
 gulp.task('test', function() {
-    return jest.runCLI({
-        config: {
-            rootDir: 'test/'
-        }
-    }, '.');
+    return jest.runCLI({}, ['test/']);
 });
 
 /*
