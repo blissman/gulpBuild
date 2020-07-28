@@ -176,7 +176,7 @@ gulp.task('babel', () =>
 );
 
 /*
-    karma tasks
+    jest tasks
 */
 gulp.task('test', function() {
     return jest.runCLI({}, ['test/']);
