@@ -34,7 +34,7 @@
         "gulp-jsbeautifier": "^3.0.1",
         "gulp-uglify": "^3.0.2",
         "gulp-uglify-es": "^2.0.0",
-        "jest": "^27.0.3"
+        "jest": "^27.0.4"
     },
     "jest": {
         "collectCoverage": true,
