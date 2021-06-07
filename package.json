@@ -38,6 +38,8 @@
     },
     "jest": {
         "collectCoverage": true,
-        "coverageDirectory": "./test/coverage"
+        "coverageDirectory": "./test/coverage",
+        "testEnvironment": "jsdom",
+        "testRunner": "jest-jasmine2"
     }
 }
